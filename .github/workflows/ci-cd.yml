@@ -48,7 +48,7 @@ jobs:
 
       - name: Deploy to Docker Container
         run: |
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@127.0.0.1 -p 2222 << 'EOF'
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@localhost -p 2222 << 'EOF'
             cd /app
             git pull origin main
           EOF
