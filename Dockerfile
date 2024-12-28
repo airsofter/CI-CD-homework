@@ -12,16 +12,19 @@ COPY . /app
 
 WORKDIR /app
 
-COPY deploy_key.pub /home/deploy/.ssh/authorized_keys
 # Устанавливаем зависимости
 RUN python -m pip install --upgrade pip && \
     pip install poetry && \
     poetry install
 
 # Настроим SSH для работы
-RUN mkdir /home/.ssh && \
-    touch /home/.ssh/authorized_keys && \
-    chmod 600 /home/.ssh/authorized_keys
+RUN mkdir /home/deploy/.ssh && \
+    touch /home/deploy/.ssh/authorized_keys && \
+    chmod 700 /home/deploy/.ssh && \
+    chmod 600 /home/deploy/.ssh/authorized_keys
+
+COPY deploy_key.pub /home/deploy/.ssh/authorized_keys
+
 
 # Открываем порт для SSH
 EXPOSE 22
